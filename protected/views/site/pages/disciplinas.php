@@ -1,7 +1,7 @@
 <?php
 /* @var $this SiteController */
 
-$this->pageTitle=Yii::app()->name . ' - Disciplina';
+$this->pageTitle=Yii::app()->name . ' - Disciplinas';
 $this->breadcrumbs=array(
 	'Disciplinas',
 );

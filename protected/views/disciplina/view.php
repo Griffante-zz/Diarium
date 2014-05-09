@@ -23,14 +23,24 @@ $this->menu=array(
 <br>
 <h2>Aulas</h2>
 <?php 
-
+	
+	
+	$turma = turma::model()->findByAttributes(array('disciplina'=>$model->id,'professor'=>1));
+	
+	$diario = diario_de_classe::model()->findByAttributes(array('turma'=>$turma->id,));
+	
+	if(!isset($diario)){
+		$diario = new diario_de_classe();
+		$diario->id = 0;
+	}
+	
 	$dataProviderAulas = new CActiveDataProvider('aula', array(
 			'criteria'=>array(
-					'condition'=>'diario=1',
+					'condition'=>'diario='.$diario->id,
 					'order'=>'data',
 			),
 			'countCriteria'=>array(
-					'condition'=>'diario=1',
+					'condition'=>'diario='.$diario->id,
 					// 'order' and 'with' clauses have no meaning for the count query
 			),
 			'pagination'=>array(
@@ -47,7 +57,7 @@ $this->menu=array(
     	),
 		array(            // display 'author.username' using an expression
     		'name'=>'data',
-    		'value'=>'$data->data',
+    		'value'=>'date("d/m/Y", strtotime($data->data))',
     	),
         array(            // display 'create_time' using an expression
             'name'=>'Início',

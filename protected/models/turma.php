@@ -44,7 +44,7 @@ class turma extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'diario_de_classes' => array(self::HAS_MANY, 'DiarioDeClasse', 'turma'),
+			'diario' => array(self::HAS_ONE, 'diario_de_classe', 'turma'),
 			'lista_de_alunoses' => array(self::HAS_MANY, 'ListaDeAlunos', 'Turma'),
 			'professor0' => array(self::BELONGS_TO, 'Professor', 'professor'),
 			'disciplina0' => array(self::BELONGS_TO, 'Disciplina', 'disciplina'),
