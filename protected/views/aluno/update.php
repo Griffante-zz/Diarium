@@ -1,18 +1,19 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),
 	'Alunos'=>array('index'),
-	$model->matricula=>array('view','id'=>$model->matricula),
-	'Update',
+	$model->id.'. '.$model->nome=>array('aluno/view', 'id'=>$model->id),
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List aluno', 'url'=>array('index')),
-	array('label'=>'Create aluno', 'url'=>array('create')),
-	array('label'=>'View aluno', 'url'=>array('view', 'id'=>$model->matricula)),
-	array('label'=>'Manage aluno', 'url'=>array('admin')),
+	array('label'=>'Listar alunos', 'url'=>array('index')),
+	array('label'=>'Inserir aluno', 'url'=>array('create')),
+	array('label'=>'Visualizar aluno', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Gerenciar aluno', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update aluno <?php echo $model->matricula; ?></h1>
+<h1>Editar aluno <?php echo $model->id.'. '.$model->nome; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'user'=>$user)); ?>

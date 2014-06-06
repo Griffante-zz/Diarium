@@ -27,7 +27,7 @@ class turma extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			array('nome', 'required'),
 			array('id, disciplina, professor', 'numerical', 'integerOnly'=>true),
 			array('nome', 'length', 'max'=>50),
 			// The following rule is used by search().

@@ -1,18 +1,19 @@
 <?php
 $this->breadcrumbs=array(
-	'Professors'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Cadastros'=>array("site/page&view=cadastros"),
+	'Professores'=>array('index'),
+	$model->id.'. '.$model->nome=>array('view', 'id'=>$model->id),
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List professor', 'url'=>array('index')),
-	array('label'=>'Create professor', 'url'=>array('create')),
-	array('label'=>'View professor', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage professor', 'url'=>array('admin')),
+	array('label'=>'Listar professores', 'url'=>array('index')),
+	array('label'=>'Inserir professor', 'url'=>array('create')),
+	array('label'=>'Visualizar professor', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Gerenciar professor', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update professor <?php echo $model->id; ?></h1>
+<h1>Editar professor <?php echo $model->id.'. '.$model->nome; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'user'=>$user)); ?>

@@ -66,19 +66,31 @@ class TurmaController extends Controller
 	public function actionCreate()
 	{
 		$model=new turma;
+		$diario=new diario_de_classe;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['turma']))
+		if(isset($_POST['turma']) && isset($_POST['diario']))
 		{
 			$model->attributes=$_POST['turma'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			$diario->attributes=$_POST['diario'];
+			
+			if($model->validate() && $diario->validate()){
+			
+				$diario->save(); // Primeiro salva o usuário para pegar o ID dele.
+			
+				$model->id = $diario->id; // Pegando o ID do usu�rio cadastrado, e vinculado ao id_usuario da tabela Cliente
+			
+				if($model->save())//Salvando os dados do CLiente j� com o ID do Usu�rio
+					$this->redirect(array('view','id'=>$model->id));
+			}
+	
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'diario'=>$diario,
 		));
 	}
 

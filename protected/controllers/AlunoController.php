@@ -31,20 +31,28 @@ class AlunoController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
+// 			array('allow',  // allow all users to perform 'index' and 'view' actions
+// 				'actions'=>array('index','view'),
+// 				'users'=>array('*'),
+// 			),
+// 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+// 				'actions'=>array('create','update'),
+// 				'users'=>array('@'),
+// 			),
+			array('allow',
+					'actions'=>array('index','view'),
+					'roles'=>array('admin', 'secretario', 'professor'),
 			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
+			array('allow', 
+					'actions'=>array('update', 'create'),
+					'roles'=>array('admin', 'secretario'),
 			),
-			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+			array('allow',
+					'actions'=>array('admin','delete'),
+					'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
-				'users'=>array('*'),
+					'users'=>array('*'),
 			),
 		);
 	}
@@ -66,19 +74,34 @@ class AlunoController extends Controller
 	public function actionCreate()
 	{
 		$model=new aluno;
+		$user=new user;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['aluno']))
+		if(isset($_POST['aluno']) && isset($_POST['user']))
 		{
 			$model->attributes=$_POST['aluno'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->matricula));
+			$user->attributes=$_POST['user'];
+			$user->tipo='aluno';
+			
+			$model->dataNascimento = date('Y-m-d', strtotime($model->dataNascimento));
+			
+			if($model->validate() && $user->validate()){
+				
+				$user->save(); // Primeiro salva o usuário para pegar o ID dele.
+				
+				$model->id = $user->id; // Pegando o ID do usu�rio cadastrado, e vinculado ao id_usuario da tabela Cliente
+				
+				if($model->save())//Salvando os dados do CLiente j� com o ID do Usu�rio
+					$this->redirect(array('view','id'=>$model->id));
+			}
+			
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'user'=>$user,
 		));
 	}
 
@@ -89,19 +112,25 @@ class AlunoController extends Controller
 	public function actionUpdate()
 	{
 		$model=$this->loadModel();
+		$user=user::model()->findByPk($model->id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['aluno']))
+		if(isset($_POST['aluno']) and isset($_POST['user']))
 		{
-			$model->attributes=$_POST['aluno'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->matricula));
+			if($model->validate() && $user->validate()){
+					
+				$model->attributes=$_POST['aluno'];
+				$user->attributes=$_POST['user'];
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+				'model'=>$model,
+				'user'=>$user,
 		));
 	}
 

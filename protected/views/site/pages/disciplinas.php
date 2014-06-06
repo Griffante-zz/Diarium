@@ -5,6 +5,7 @@ $this->pageTitle=Yii::app()->name . ' - Disciplinas';
 $this->breadcrumbs=array(
 	'Disciplinas',
 );
+
 ?>
 <h1>Disciplinas</h1>
 
@@ -12,13 +13,21 @@ $this->breadcrumbs=array(
 
 	//echo Yii::app()->user->id;
 	
+	$condition='professor>0';
+	
+	if(isset(Yii::app()->user->role)){
+		if(Yii::app()->user->role == 'professor='){
+			$condition='professor='.Yii::app()->user->id;
+		}
+	}
+	
 	$dataProvider = new CActiveDataProvider('turma', array(
 			'criteria'=>array(
-					'condition'=>'professor=1',
+					'condition'=>$condition,
 					'order'=>'disciplina',
 			),
 			'countCriteria'=>array(
-					'condition'=>'professor=1',
+					'condition'=>$condition,
 					// 'order' and 'with' clauses have no meaning for the count query
 			),
 			'pagination'=>array(

@@ -6,6 +6,9 @@ $this->pageTitle=Yii::app()->name . ' - Error';
 $this->breadcrumbs=array(
 	'Error',
 );
+if (!Yii::app()->user->isGuest){
+	$this->layout=Yii::app()->params['layout'][Yii::app()->user->role];
+}
 ?>
 
 <h2>Error <?php echo $code; ?></h2>

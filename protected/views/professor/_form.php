@@ -5,7 +5,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Campos com <span class="required">*</span> são obrigatórios.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -16,19 +16,31 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>100)); ?>
-		<?php echo $form->error($model,'email'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'titulacao'); ?>
 		<?php echo $form->textField($model,'titulacao',array('size'=>12,'maxlength'=>12)); ?>
 		<?php echo $form->error($model,'titulacao'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($user,'username'); ?>
+		<?php echo $form->textField($user,'username',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($user,'username'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($user,'password'); ?>
+		<?php echo $form->passwordField($user,'password',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($user,'password'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($user,'email'); ?>
+		<?php echo $form->textField($user,'email',array('size'=>60,'maxlength'=>128)); ?>
+		<?php echo $form->error($user,'email'); ?>
+	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Inserir' : 'Salvar'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

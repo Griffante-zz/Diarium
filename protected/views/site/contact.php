@@ -7,6 +7,9 @@ $this->pageTitle=Yii::app()->name . ' - Contact Us';
 $this->breadcrumbs=array(
 	'Contact',
 );
+// if (!Yii::app()->user->isGuest){
+// 	$this->layout=Yii::app()->params['layout'][Yii::app()->user->role];
+// }
 ?>
 
 <h1>Contact Us</h1>

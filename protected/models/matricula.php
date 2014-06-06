@@ -26,7 +26,7 @@ class matricula extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			//array('id', 'required'),
 			array('id, curso', 'numerical', 'integerOnly'=>true),
 			array('matricula', 'length', 'max'=>20),
 			// The following rule is used by search().

@@ -6,7 +6,6 @@
  * The followings are the available columns in table 'professor':
  * @property integer $id
  * @property string $nome
- * @property string $email
  * @property string $titulacao
  */
 class professor extends CActiveRecord
@@ -27,14 +26,13 @@ class professor extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			array('nome', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('nome', 'length', 'max'=>200),
-			array('email', 'length', 'max'=>100),
 			array('titulacao', 'length', 'max'=>12),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nome, email, titulacao', 'safe', 'on'=>'search'),
+			array('id, nome, titulacao', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -46,6 +44,7 @@ class professor extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'id0' => array(self::BELONGS_TO, 'User', 'id'),
 			'turmas' => array(self::HAS_MANY, 'Turma', 'professor'),
 		);
 	}
@@ -56,10 +55,9 @@ class professor extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'nome' => 'Nome',
-			'email' => 'Email',
-			'titulacao' => 'Titulacao',
+			'titulacao' => 'Titulação',
 		);
 	}
 
@@ -84,8 +82,6 @@ class professor extends CActiveRecord
 		$criteria->compare('id',$this->id);
 
 		$criteria->compare('nome',$this->nome,true);
-
-		$criteria->compare('email',$this->email,true);
 
 		$criteria->compare('titulacao',$this->titulacao,true);
 

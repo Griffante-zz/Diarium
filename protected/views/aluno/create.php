@@ -1,15 +1,16 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),
 	'Alunos'=>array('index'),
-	'Create',
+	'Novo Aluno',
 );
 
 $this->menu=array(
-	array('label'=>'List aluno', 'url'=>array('index')),
-	array('label'=>'Manage aluno', 'url'=>array('admin')),
+	array('label'=>'Listar alunos', 'url'=>array('index')),
+	array('label'=>'Gerenciar aluno', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create aluno</h1>
+<h1>Inserir aluno</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'user'=>$user)); ?>

@@ -1,11 +1,12 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),
 	'Alunos',
 );
 
 $this->menu=array(
-	array('label'=>'Create aluno', 'url'=>array('create')),
-	array('label'=>'Manage aluno', 'url'=>array('admin')),
+	array('label'=>'Inserir aluno', 'url'=>array('create')),
+	array('label'=>'Gerenciar aluno', 'url'=>array('admin')),
 );
 ?>
 

@@ -8,12 +8,16 @@
 	<?php echo CHtml::encode($data->nome); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('email')); ?>:</b>
-	<?php echo CHtml::encode($data->email); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('titulacao')); ?>:</b>
 	<?php echo CHtml::encode($data->titulacao); ?>
+	<br />
+	
+	<b><?php echo CHtml::encode($data->id0->getAttributeLabel('username')); ?>:</b>
+	<?php echo CHtml::encode($data->id0->username); ?>
+	<br />
+	
+	<b><?php echo CHtml::encode($data->id0->getAttributeLabel('email')); ?>:</b>
+	<?php echo CHtml::encode($data->id0->email); ?>
 	<br />
 
 

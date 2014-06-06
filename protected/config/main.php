@@ -54,6 +54,7 @@ return array(
 		),
 		*/
 		// uncomment the following to use a MySQL database
+		
 		'db'=>array(
 			'connectionString' => 'mysql:host=localhost;dbname=diarium_db',
 			'emulatePrepare' => true,
@@ -62,6 +63,15 @@ return array(
 			'charset' => 'utf8',
 		),
 		
+		/*
+		'db'=>array(
+            'class'=>'CDbConnection',
+            'connectionString'=>'sqlite:path/to/file.db',
+        ),
+        */
+        'authManager'=>array(
+            'class'=>'CPhpAuthManager',
+        ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
 			'errorAction'=>'site/error',
@@ -88,5 +98,10 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@diarium.com',
+		'layout'=>array('default'=>'//layouts/column1',
+		                'admin'=>'//layouts/column1',
+		                'aluno'=>'//layouts/column1',
+		                'secretario'=>'//layouts/column1',
+		                'professor'=>'//layouts/column1_professor'),
 	),
 );

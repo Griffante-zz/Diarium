@@ -9,7 +9,7 @@
 	<div id="sidebar">
 	<?php
 		$this->beginWidget('zii.widgets.CPortlet', array(
-			'title'=>'Disciplinas',
+			'title'=>'Opera&ccedil&otildees',
 		));
 		$this->widget('zii.widgets.CMenu', array(
 			'items'=>$this->menu,

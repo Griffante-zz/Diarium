@@ -31,17 +31,25 @@ class ProfessorController extends Controller
 	public function accessRules()
 	{
 		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('*'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
+// 			array('allow',  // allow all users to perform 'index' and 'view' actions
+// 				'actions'=>array('index','view'),
+// 				'users'=>array('*'),
+// 			),
+// 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
+// 				'actions'=>array('create','update'),
+// 				'users'=>array('@'),
+// 			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+					'actions'=>array('index','view'),
+					'roles'=>array('admin', 'secretario', 'professor'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('update', 'create'),
+				'roles'=>array('admin', 'secretario'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+					'actions'=>array('admin','delete'),
+					'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -66,19 +74,33 @@ class ProfessorController extends Controller
 	public function actionCreate()
 	{
 		$model=new professor;
+		$user=new user;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['professor']))
+		if(isset($_POST['professor']) && isset($_POST['user']))
 		{
 			$model->attributes=$_POST['professor'];
+			$user->attributes=$_POST['user'];
+			$user->tipo='professor';
+				
+			if($model->validate() && $user->validate()){
+					
+				$user->save(); // Primeiro salva o usuário para pegar o ID dele.
+					
+				$model->id = $user->id; // Pegando o ID do usuário cadastrado, e vinculado ao id da tabela Professor
+					
+				if($model->save())//Salvando os dados do CLiente j� com o ID do Usu�rio
+					$this->redirect(array('view','id'=>$model->id));
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
+			'user'=>$user,
 		));
 	}
 
@@ -89,19 +111,25 @@ class ProfessorController extends Controller
 	public function actionUpdate()
 	{
 		$model=$this->loadModel();
+		$user=user::model()->findByPk($model->id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['professor']))
+		if(isset($_POST['professor']) and isset($_POST['user']))
 		{
-			$model->attributes=$_POST['professor'];
-			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+			if($model->validate() && $user->validate()){
+					
+				$model->attributes=$_POST['professor'];
+				$user->attributes=$_POST['user'];
+				if($model->save())
+					$this->redirect(array('view','id'=>$model->id));
+			}
 		}
 
 		$this->render('update',array(
-			'model'=>$model,
+				'model'=>$model,
+				'user'=>$user,
 		));
 	}
 

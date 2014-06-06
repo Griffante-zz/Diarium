@@ -1,26 +1,43 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),
 	'Alunos'=>array('index'),
-	$model->matricula,
+	$model->id.'. '.$model->nome,
 );
 
 $this->menu=array(
-	array('label'=>'List aluno', 'url'=>array('index')),
-	array('label'=>'Create aluno', 'url'=>array('create')),
-	array('label'=>'Update aluno', 'url'=>array('update', 'id'=>$model->matricula)),
-	array('label'=>'Delete aluno', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->matricula),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage aluno', 'url'=>array('admin')),
+	array('label'=>'Listar alunos', 'url'=>array('index')),
+	array('label'=>'Inserir aluno', 'url'=>array('create')),
+	array('label'=>'Editar aluno', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Excluir aluno', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Voc� tem certeza que deseja excluir este aluno?')),
+	array('label'=>'Gerenciar aluno', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View aluno #<?php echo $model->matricula; ?></h1>
+<h1>Aluno <?php echo $model->id.'. '.$model->nome; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
+		'id',
 		'matricula',
 		'nome',
 		'endereco',
-		'dataNascimento',
+		array(
+			'label'=>'Data de Nascimento',
+			'value'=>date('d/m/Y', strtotime($model->dataNascimento)),
+		),
+		array(         
+            'label'=>'Username',
+            'value'=>$model->id0->username,
+        ),
+		array(
+				'label'=>'Password',
+				'value'=>$model->id0->password,
+		),
+		array(
+				'label'=>'E-mail',
+				'value'=>$model->id0->email,
+		),
 	),
 )); ?>

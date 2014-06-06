@@ -26,23 +26,57 @@
 		<div id="logo"><i><?php echo CHtml::encode(Yii::app()->name); ?></i></div>
 		<?php 
 			if (!Yii::app()->user->isGuest){
-				echo "<div id='boas-vindas'><p>Bem-vindo, <span class='nome'><i>".Yii::app()->user->name."</i></span>.</div>";	
+				echo "<div id='boas-vindas'><p>Bem-vindo, <span class='nome'><i>".Yii::app()->user->nome."</i></span>.</div>";	
 			}
 			
+		?>
+		
+		<?php 
+			function isRole($role){
+			if (!Yii::app()->user->isGuest){
+				if(Yii::app()->user->role == $role || Yii::app()->user->role == 'admin'){
+					return true;
+				}
+				else{
+					return false;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+		
 		?>
 	</div><!-- header -->
 
 	<div id="mainmenu">
-		<?php $this->widget('zii.widgets.CMenu',array(
+		<?php  $this->widget('zii.widgets.CMenu', array(
+			'activeCssClass'=>'active',
+			'activateParents'=>true,
 			'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
-				array('label'=>'Disciplinas', 'url'=>array('/site/page', 'view'=>'disciplinas')),
-				array('label'=>'Contact', 'url'=>array('/site/contact')),
-				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
-				array('label'=>'Logout', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+				array('label'=>'Disciplinas', 'url'=>array('/site/page', 'view'=>'disciplinas'), 'visible'=>isRole('professor')),
+				array('label'=>'Cadastros', 'url'=>array('/site/page', 'view'=>'cadastros'), 
+					'items'=>array(
+						array('label'=>'Aluno', 'url'=>array('/aluno/index')),
+						array('label'=>'Professor', 'url'=>array('/professor/index')),
+						array('label'=>'Secretário', 'url'=>array('/secretario/index')),
+						array('label'=>'Curso', 'url'=>array('/curso/index')),
+						array('label'=>'Disciplina', 'url'=>array('/disciplina/index')),
+						array('label'=>'Turma', 'url'=>array('/turma/index')),
+						array('label'=>'Horários', 'url'=>array('/horario/index')),
+					),
+					'visible'=>isRole('secretario')
+				),
+				array('label'=>'Horários', 'url'=>array('/site/page', 'view'=>'horarios'), 'visible'=>isRole('aluno')),
+				array('label'=>'Boletim', 'url'=>array('/site/page', 'view'=>'boletim'), 'visible'=>isRole('aluno')),
+				array('label'=>'Sobre', 'url'=>array('/site/page', 'view'=>'about')),
+				array('label'=>'Contato', 'url'=>array('/site/contact')),
+				array('label'=>'Entrar', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Sair', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>
+		
 	</div><!-- mainmenu -->
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(

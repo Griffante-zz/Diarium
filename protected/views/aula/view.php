@@ -12,7 +12,7 @@ $this->menu=array(
 ?>
 <div class='view' >
 
-<h1>Di&#225rio de Classe</h1>
+<h1>Diário de Classe</h1>
 <div class="freq">
 <table>
 	<tr>
@@ -42,10 +42,21 @@ $this->menu=array(
 
 <hr>
 
-<form>
+<div class="form">
+
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'aula-form',
+	'enableAjaxValidation'=>false,
+)); ?>
+
+<?php echo $form->errorSummary($model); ?>
+
 	<h3><?php echo date('d/m/Y', strtotime($model->data)); ?></h3>
 	<h2>Conteúdo:</h2>
-	<textarea rows="4" cols="50"><?php echo $model->conteudo; ?>			 </textarea>
+	<div class="row">
+		<?php echo $form->textArea($model,'conteudo', array('rows'=>'4', 'cols'=>'50')); ?>
+		<?php echo $form->error($model,'conteudo'); ?>
+	</div>
 	<br>
 	<h2>Controle de Frequência:</h2> 
 	
@@ -72,12 +83,13 @@ $this->menu=array(
 			}
 		?>
 	</table>
-	
-	<input type='submit' value='Salvar'>
-</form>
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('Salvar'); ?>
+	</div>
+<?php $this->endWidget(); ?>
+
+</div><!-- form -->
 </div>
 </div>
-
-
 
 

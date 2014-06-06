@@ -6,6 +6,11 @@
 )); ?>
 
 	<div class="row">
+		<?php echo $form->label($model,'id'); ?>
+		<?php echo $form->textField($model,'id'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'matricula'); ?>
 		<?php echo $form->textField($model,'matricula',array('size'=>20,'maxlength'=>20)); ?>
 	</div>

@@ -1,19 +1,11 @@
 <?php
 $this->breadcrumbs=array('Disciplinas'=>array("site/page&view=disciplinas"),
 	$model->nome
+		
+
 );
 
-$this->menu=array(
-	array('label'=>'List disciplina', 'url'=>array('index')),
-	array('label'=>'Create disciplina', 'url'=>array('create')),
-	array('label'=>'Update disciplina', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete disciplina', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage disciplina', 'url'=>array('admin')),
-);
 ?>
-<!--
-<h1>View disciplina #<?php echo $model->id; ?></h1>
--->
 
 <div class='view' >
 <h1><?php echo $model->nome?></h1>
@@ -25,7 +17,7 @@ $this->menu=array(
 <?php 
 	
 	
-	$turma = turma::model()->findByAttributes(array('disciplina'=>$model->id,'professor'=>1));
+	$turma = turma::model()->findByAttributes(array('disciplina'=>$model->id,'professor'=>Yii::app()->user->id));
 	
 	$diario = diario_de_classe::model()->findByAttributes(array('turma'=>$turma->id,));
 	
@@ -64,7 +56,7 @@ $this->menu=array(
             'value'=>'$data->horario0->inicio',
         ),
 		array(            // display 'create_time' using an expression
-            'name'=>'T&#233rmino',
+            'name'=>'Término',
             'value'=>'$data->horario0->termino',
         ),
         array(            // display a column with "view", "update" and "delete" buttons
@@ -77,6 +69,62 @@ $this->menu=array(
 ));
 
 ?>
+<br>
+<h2>Avaliações</h2>
+<?php 
+
+	$dataProviderAvaliacao = new CActiveDataProvider('avaliacao', array(
+			'criteria'=>array(
+					'condition'=>'turma='.$turma->id,
+					'order'=>'data',
+			),
+			'countCriteria'=>array(
+					'condition'=>'turma='.$turma->id,
+					// 'order' and 'with' clauses have no meaning for the count query
+			),
+			'pagination'=>array(
+					'pageSize'=>10,
+			),
+	));
+	
+	$this->widget('zii.widgets.grid.CGridView', array(
+    'dataProvider'=>$dataProviderAvaliacao,
+    'columns'=>array(
+    	array(            // display 'author.username' using an expression
+    		'name'=>'id',
+    		'value'=>'$data->id',
+    	),
+		array(            // display 'author.username' using an expression
+    		'name'=>'data',
+    		'value'=>'date("d/m/Y", strtotime($data->data))',
+    	),
+        array(            // display 'create_time' using an expression
+            'name'=>'Início',
+            'value'=>'$data->horario0->inicio',
+        ),
+		array(            // display 'create_time' using an expression
+            'name'=>'Término',
+            'value'=>'$data->horario0->termino',
+        ),
+        array(            // display a column with "view", "update" and "delete" buttons
+			    'class'=>'CButtonColumn',
+        		'viewButtonLabel'=>'Visualizar',
+				'template'=>'{view},{delete}',
+				'viewButtonUrl'=>'Yii::app()->createUrl("avaliacao/view&id=".$data->id)',
+				'deleteButtonUrl'=>'Yii::app()->createUrl("avaliacao/delete&id=".$data->id)',
+        ),
+    ),
+));
+
+?>
+
+<div class="row buttons">
+		<?php echo CHtml::submitButton('Inserir Avaliação', array('submit'=> Yii::app()->createUrl("avaliacao/create&turma=".$turma->id))); ?>
 </div>
+
+
+</div>
+
+
 
 <br>

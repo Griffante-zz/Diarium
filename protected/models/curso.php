@@ -26,7 +26,7 @@ class curso extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			//array('id', 'required'),
 			array('id, coordenador', 'numerical', 'integerOnly'=>true),
 			array('nome', 'length', 'max'=>100),
 			// The following rule is used by search().

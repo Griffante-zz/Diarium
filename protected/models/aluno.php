@@ -4,6 +4,7 @@
  * This is the model class for table "aluno".
  *
  * The followings are the available columns in table 'aluno':
+ * @property integer $id
  * @property string $matricula
  * @property string $nome
  * @property string $endereco
@@ -27,13 +28,14 @@ class aluno extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('matricula', 'required'),
+			array(array('matricula', 'nome'),'required'),
+			array('id', 'numerical', 'integerOnly'=>true),
 			array('matricula', 'length', 'max'=>20),
 			array('nome, endereco', 'length', 'max'=>200),
 			array('dataNascimento', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('matricula, nome, endereco, dataNascimento', 'safe', 'on'=>'search'),
+			array('id, matricula, nome, endereco, dataNascimento', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -45,9 +47,11 @@ class aluno extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'id0' => array(self::BELONGS_TO, 'User', 'id'),
+			'avaliacao_alunos' => array(self::HAS_MANY, 'AvaliacaoAluno', 'aluno'),
 			'frequencias' => array(self::HAS_MANY, 'Frequencia', 'aluno'),
 			'lista_de_alunoses' => array(self::HAS_MANY, 'ListaDeAlunos', 'Aluno'),
-			'matriculas' => array(self::HAS_MANY, 'Matricula', 'matricula'),
+			'matriculas' => array(self::HAS_MANY, 'Matricula', 'aluno'),
 		);
 	}
 
@@ -57,10 +61,11 @@ class aluno extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'matricula' => 'Matricula',
+			'id' => 'ID',
+			'matricula' => 'Matrícula',
 			'nome' => 'Nome',
-			'endereco' => 'Endereco',
-			'dataNascimento' => 'Data Nascimento',
+			'endereco' => 'Endereço',
+			'dataNascimento' => 'Data de Nascimento',
 		);
 	}
 
@@ -81,6 +86,8 @@ class aluno extends CActiveRecord
 		// should not be searched.
 
 		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
 
 		$criteria->compare('matricula',$this->matricula,true);
 

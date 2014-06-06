@@ -91,8 +91,14 @@ class SiteController extends Controller
 		{
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
-			if($model->validate() && $model->login())
-				$this->redirect(Yii::app()->user->returnUrl);
+			if($model->validate() && $model->login()){
+				if(Yii::app()->user->role == 'professor'){
+					$this->redirect($this->createUrl('site/page', array('view'=>'disciplinas')));
+				}
+				else{
+					$this->redirect(Yii::app()->user->returnUrl);
+				}
+			}
 		}
 		// display the login form
 		$this->render('login',array('model'=>$model));
@@ -103,7 +109,18 @@ class SiteController extends Controller
 	 */
 	public function actionLogout()
 	{
+		$assigned_roles = Yii::app()->authManager->getRoles(Yii::app()->user->id); //obtains all assigned roles for this user id
+		if(!empty($assigned_roles)) //checks that there are assigned roles
+		{
+			$auth=Yii::app()->authManager; //initializes the authManager
+			foreach($assigned_roles as $n=>$role)
+			{
+				if($auth->revoke($n,Yii::app()->user->id)) //remove each assigned role for this user
+					Yii::app()->authManager->save(); //again always save the result
+			}
+		}
 		Yii::app()->user->logout();
 		$this->redirect(Yii::app()->homeUrl);
 	}
+	
 }

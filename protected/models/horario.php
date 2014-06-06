@@ -28,7 +28,7 @@ class horario extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			array('grade', 'required'),
 			array('id, grade', 'numerical', 'integerOnly'=>true),
 			array('dia', 'length', 'max'=>7),
 			array('inicio, termino', 'safe'),

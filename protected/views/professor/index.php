@@ -1,15 +1,16 @@
 <?php
 $this->breadcrumbs=array(
-	'Professors',
+	'Cadastros'=>array("site/page&view=cadastros"),
+	'Professores',
 );
 
 $this->menu=array(
-	array('label'=>'Create professor', 'url'=>array('create')),
-	array('label'=>'Manage professor', 'url'=>array('admin')),
+	array('label'=>'Inserir professor', 'url'=>array('create')),
+	array('label'=>'Gerenciar professor', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Professors</h1>
+<h1>Professores</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

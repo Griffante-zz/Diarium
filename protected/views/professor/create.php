@@ -1,15 +1,16 @@
 <?php
 $this->breadcrumbs=array(
-	'Professors'=>array('index'),
-	'Create',
+	'Cadastros'=>array("site/page&view=cadastros"),
+	'Professores'=>array('index'),
+	'Novo Professor',
 );
 
 $this->menu=array(
-	array('label'=>'List professor', 'url'=>array('index')),
-	array('label'=>'Manage professor', 'url'=>array('admin')),
+	array('label'=>'Listar professores', 'url'=>array('index')),
+	array('label'=>'Gerenciar professores', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create professor</h1>
+<h1>Inserir professor</h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'user'=>$user)); ?>
