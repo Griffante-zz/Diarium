@@ -1,20 +1,49 @@
 <?php
 /* @var $this SiteController */
+/* @var $model LoginForm */
+/* @var $form CActiveForm  */
 
 $this->pageTitle=Yii::app()->name;
 ?>
+<h1>Bem-vindo ao Sistema <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-<h1>Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<p>Para utilizar o sistema, por favor identifique-se no formulário abaixo:</p>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
+<div class="form">
+<?php $form=$this->beginWidget('CActiveForm', array(
+	'id'=>'login-form',
+	'enableClientValidation'=>true,
+	'clientOptions'=>array(
+		'validateOnSubmit'=>true,
+	),
+)); ?>
 
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main_professor'); ?></code></li>
-</ul>
+	<p class="note">Campos com <span class="required">*</span> são obrigatórios.</p>
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+	<div class="row">
+		<?php echo $form->labelEx($model,'username'); ?>
+		<?php echo $form->textField($model,'username'); ?>
+		<?php echo $form->error($model,'username'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'password'); ?>
+		<?php echo $form->passwordField($model,'password'); ?>
+		<?php echo $form->error($model,'password'); ?>
+		<p class="hint">
+			<!--Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>-->.
+		</p>
+	</div>
+	 
+	<div class="row rememberMe">
+		<?php echo $form->checkBox($model,'rememberMe'); ?>
+		<?php echo $form->label($model,'rememberMe'); ?>
+		<?php echo $form->error($model,'rememberMe'); ?>
+	</div>
+	
+	<div class="row buttons">
+		<?php echo CHtml::submitButton('Entrar'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+</div><!-- form -->

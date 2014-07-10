@@ -33,15 +33,15 @@ class TurmaController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'roles'=>array('admin', 'secretario', 'professor'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'roles'=>array('admin', 'secretario'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -66,31 +66,32 @@ class TurmaController extends Controller
 	public function actionCreate()
 	{
 		$model=new turma;
-		$diario=new diario_de_classe;
+		$diario_de_classe=new diario_de_classe;
 
+		if(isset($_POST['diario_de_classe']))
+			echo "Aqui";
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
-
-		if(isset($_POST['turma']) && isset($_POST['diario']))
+		if(isset($_POST['turma']) && isset($_POST['diario_de_classe']))
 		{
 			$model->attributes=$_POST['turma'];
-			$diario->attributes=$_POST['diario'];
+			$diario_de_classe->attributes=$_POST['diario_de_classe'];
 			
-			if($model->validate() && $diario->validate()){
-			
-				$diario->save(); // Primeiro salva o usuário para pegar o ID dele.
-			
-				$model->id = $diario->id; // Pegando o ID do usu�rio cadastrado, e vinculado ao id_usuario da tabela Cliente
-			
-				if($model->save())//Salvando os dados do CLiente j� com o ID do Usu�rio
+			if($model->validate()){	
+				
+				if($model->save()){
+					
+					$diario_de_classe->turma = $model->id;
+					$diario_de_classe->save();
 					$this->redirect(array('view','id'=>$model->id));
+				}
 			}
 	
 		}
 
 		$this->render('create',array(
 			'model'=>$model,
-			'diario'=>$diario,
+			'diario_de_classe'=>$diario_de_classe,
 		));
 	}
 

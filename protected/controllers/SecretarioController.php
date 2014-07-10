@@ -31,24 +31,12 @@ class SecretarioController extends Controller
 	public function accessRules()
 	{
 		return array(
-// 			array('allow',  // allow all users to perform 'index' and 'view' actions
-// 				'actions'=>array('index','view'),
-// 				'users'=>array('*'),
-// 			),
-// 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-// 				'actions'=>array('create','update'),
-// 				'users'=>array('@'),
-// 			),
-// 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-// 				'actions'=>array('admin','delete'),
-// 				'users'=>array('admin'),
-// 			),
-			array('allow',  // allow secretario to perform 'index' and 'view' actions
- 				'actions'=>array('index','view'),
+			array('allow',  // allow secretario to perform 'index' actions
+ 				'actions'=>array('index'),
  				'roles'=>array('admin','secretario'),
  			),
-			array('allow', // allow admin user to perform 'admin' and CRUD actions
- 				'actions'=>array('admin','delete','create','update'),
+			array('allow', // allow admin user to perform 'admin', 'view' and CRUD actions
+ 				'actions'=>array('admin','view', 'delete','create','update'),
 				'roles'=>array('admin'),
  			),
 			array('deny',  // deny all users
@@ -87,11 +75,11 @@ class SecretarioController extends Controller
 			
 			if($model->validate() && $user->validate()){
 			
-				$user->save(); // Primeiro salva o usuário para pegar o ID dele.
+				$user->save(); // Primeiro salva o usuÃ¡rio para pegar o ID dele.
 			
-				$model->id = $user->id; // Pegando o ID do usuário cadastrado, e vinculado ao id_usuario da tabela Cliente
+				$model->id = $user->id; // Pegando o ID do usuÃ¡rio cadastrado, e vinculado ao id da tabela Secretario
 			
-				if($model->save())//Salvando os dados do CLiente já com o ID do Usuário
+				if($model->save())//Salvando os dados do SecretÃ¡rio com o ID do UsuÃ¡rio
 					$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -109,19 +97,26 @@ class SecretarioController extends Controller
 	public function actionUpdate()
 	{
 		$model=$this->loadModel();
+		$user=user::model()->findByPk($model->id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['secretario']))
+		if(isset($_POST['secretario']) && isset($_POST['user']))
 		{
 			$model->attributes=$_POST['secretario'];
+			$user->attributes=$_POST['user'];
+			$user->tipo='secretario';
+			
+			$user->save();
+			
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('update',array(
 			'model'=>$model,
+			'user'=>$user,
 		));
 	}
 
@@ -134,7 +129,13 @@ class SecretarioController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel()->delete();
+			//$this->loadModel()->delete();
+			
+			$model=$this->loadModel();
+			$user=user::model()->findByPk($model->id);
+			
+			$model->delete();
+			$user->delete();
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))

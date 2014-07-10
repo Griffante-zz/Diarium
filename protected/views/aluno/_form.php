@@ -5,15 +5,9 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Campos com <span class="required">*</span> s&atildeo obrigat&oacuterios.</p>
+	<p class="note">Campos com <span class="required">*</span> são obrigatórios.</p>
 
 	<?php echo $form->errorSummary($model); ?>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'matricula'); ?>
-		<?php echo $form->textField($model,'matricula',array('size'=>20,'maxlength'=>20)); ?>
-		<?php echo $form->error($model,'matricula'); ?>
-	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'nome'); ?>
@@ -28,19 +22,20 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'dataNascimento'); ?>
-		<?php /*echo $form->textField($model,'dataNascimento'); */
-			$this->widget('CMaskedTextField', array(
-					'model' => $model,
-					'attribute' => 'dataNascimento',
-					//'name'=>'dataNascimento',
-					//'value'=>$model->dataNascimento,
-					'mask' => '99/99/9999',
-					'htmlOptions' => array('size' => 8)
-			));
-		?>
-		<?php echo $form->error($model,'dataNascimento'); ?>
+		<?php echo $form->labelEx($model,'data_nascimento'); ?>
+		<?php echo $form->dateField($model,'data_nascimento'); ?>
+		<?php echo $form->error($model,'data_nascimento'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($matricula,'curso'); ?>
+		<?php echo $form->dropDownList($matricula,'curso',
+					CHtml::listData(curso::model()->findAll(array('order' => 'nome')),'id','nome')	
+				); ?>
+		<?php echo $form->error($matricula,'curso'); ?>
+	</div>
+	
+	
 	
 	<div class="row">
 		<?php echo $form->labelEx($user,'username'); ?>

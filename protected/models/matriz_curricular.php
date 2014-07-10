@@ -26,7 +26,7 @@ class matriz_curricular extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			array('disciplina', 'required'),
 			array('id, curso, disciplina', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -42,8 +42,8 @@ class matriz_curricular extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'disciplina0' => array(self::BELONGS_TO, 'Disciplina', 'disciplina'),
-			'curso0' => array(self::BELONGS_TO, 'Curso', 'curso'),
+			'disciplina0' => array(self::BELONGS_TO, 'disciplina', 'disciplina'),
+			'curso0' => array(self::BELONGS_TO, 'curso', 'curso'),
 		);
 	}
 
@@ -53,7 +53,7 @@ class matriz_curricular extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'curso' => 'Curso',
 			'disciplina' => 'Disciplina',
 		);

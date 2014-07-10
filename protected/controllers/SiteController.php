@@ -29,7 +29,8 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
-		$this->render('index');
+		//$this->render('index');
+		$this->actionLogin();
 	}
 
 	/**
@@ -92,8 +93,14 @@ class SiteController extends Controller
 			$model->attributes=$_POST['LoginForm'];
 			// validate user input and redirect to the previous page if valid
 			if($model->validate() && $model->login()){
-				if(Yii::app()->user->role == 'professor'){
-					$this->redirect($this->createUrl('site/page', array('view'=>'disciplinas')));
+ 				if(Yii::app()->user->role == 'professor'){
+ 					$this->redirect($this->createUrl('site/page', array('view'=>'disciplinas')));
+				}
+				if(Yii::app()->user->role == 'secretario'){
+					$this->redirect($this->createUrl('site/page', array('view'=>'cadastros')));
+				}
+				if(Yii::app()->user->role == 'aluno'){
+					$this->redirect($this->createUrl('site/page', array('view'=>'boletim')));
 				}
 				else{
 					$this->redirect(Yii::app()->user->returnUrl);
@@ -101,7 +108,7 @@ class SiteController extends Controller
 			}
 		}
 		// display the login form
-		$this->render('login',array('model'=>$model));
+		$this->render('index',array('model'=>$model));
 	}
 
 	/**

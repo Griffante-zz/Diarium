@@ -1,27 +1,37 @@
 <?php
 $this->breadcrumbs=array(
-	'Secretarios'=>array('index'),
-	$model->id,
+	'Cadastros'=>array("site/page&view=cadastros"),
+	'Secretários'=>array('index'),
+	$model->id.'. '.$model->nome,
 );
 
 $this->menu=array(
-	array('label'=>'List secretario', 'url'=>array('index')),
-	array('label'=>'Create secretario', 'url'=>array('create')),
-	array('label'=>'Update secretario', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete secretario', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage secretario', 'url'=>array('admin')),
+	array('label'=>'Listar secretários', 'url'=>array('index')),
+	array('label'=>'Inserir secretário', 'url'=>array('create')),
+	array('label'=>'Editar secretário', 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>'Excluir secretário', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Você tem certeza que deseja excluir este secretário?')),
+	array('label'=>'Gerenciar secretários', 'url'=>array('admin')),
 );
 ?>
 
-<h1>View secretario #<?php echo $model->id; ?></h1>
+<h1>Secretário <?php echo $model->id.'. '.$model->nome; ?></h1>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
 		'nome',
-		'Username',
-		'Password',
-		'Email',
+		array(         
+            'label'=>'Username',
+            'value'=>$model->user->username,
+        ),
+		array(
+				'label'=>'Password',
+				'value'=>$model->user->password,
+		),
+		array(
+				'label'=>'E-mail',
+				'value'=>$model->user->email,
+		),
 	),
 )); ?>

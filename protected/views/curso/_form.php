@@ -5,7 +5,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Campos com <span class="required">*</span> são obrigatórios.</p>
 
 	<?php echo $form->errorSummary($model); ?>
 
@@ -17,12 +17,16 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'coordenador'); ?>
-		<?php echo $form->textField($model,'coordenador'); ?>
+		<?php /*echo $form->textField($model,'coordenador'); */
+				echo $form->dropDownList($model,'coordenador',
+					CHtml::listData(professor::model()->findAll(array('order' => 'nome')),'id','nome')	
+				);
+		?>
 		<?php echo $form->error($model,'coordenador'); ?>
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? 'Inserir' : 'Salvar'); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

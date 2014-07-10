@@ -9,8 +9,8 @@ $this->menu=array(
 	array('label'=>'Listar alunos', 'url'=>array('index')),
 	array('label'=>'Inserir aluno', 'url'=>array('create')),
 	array('label'=>'Editar aluno', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Excluir aluno', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Voc� tem certeza que deseja excluir este aluno?')),
-	array('label'=>'Gerenciar aluno', 'url'=>array('admin')),
+	array('label'=>'Excluir aluno', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Você tem certeza que deseja excluir este aluno?')),
+	array('label'=>'Gerenciar alunos', 'url'=>array('admin')),
 );
 ?>
 
@@ -25,19 +25,23 @@ $this->menu=array(
 		'endereco',
 		array(
 			'label'=>'Data de Nascimento',
-			'value'=>date('d/m/Y', strtotime($model->dataNascimento)),
+			'value'=>date('d/m/Y', strtotime($model->data_nascimento)),
+		),
+		array(
+			'label'=>'Curso',
+			'value'=>$model->matricula0->curso.'. '.$model->matricula0->curso0->nome,
 		),
 		array(         
             'label'=>'Username',
-            'value'=>$model->id0->username,
+            'value'=>$model->user->username,
         ),
 		array(
 				'label'=>'Password',
-				'value'=>$model->id0->password,
+				'value'=>$model->user->password,
 		),
 		array(
 				'label'=>'E-mail',
-				'value'=>$model->id0->email,
+				'value'=>$model->user->email,
 		),
 	),
 )); ?>

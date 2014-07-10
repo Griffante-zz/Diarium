@@ -33,15 +33,15 @@ class CursoController extends Controller
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'roles'=>array('admin', 'secretario', 'professor'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
-				'users'=>array('@'),
+				'actions'=>array('create','update', 'delete'),
+				'roles'=>array('admin', 'secretario'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'actions'=>array('admin'),
+				'roles'=>array('admin'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -54,8 +54,10 @@ class CursoController extends Controller
 	 */
 	public function actionView()
 	{
+		$model = $this->loadModel();
+		$coordenador = professor::model()->findByPk($model->coordenador);
 		$this->render('view',array(
-			'model'=>$this->loadModel(),
+			'model'=>$model,
 		));
 	}
 
@@ -128,7 +130,7 @@ class CursoController extends Controller
 	 * Lists all models.
 	 */
 	public function actionIndex()
-	{
+	{	
 		$dataProvider=new CActiveDataProvider('curso');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

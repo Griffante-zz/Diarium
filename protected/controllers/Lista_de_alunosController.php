@@ -6,7 +6,7 @@ class Lista_de_alunosController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @var CActiveRecord the currently loaded data model instance.
@@ -53,10 +53,22 @@ class Lista_de_alunosController extends Controller
 	 * Displays a particular model.
 	 */
 	public function actionView()
-	{
-		$this->render('view',array(
-			'model'=>$this->loadModel(),
-		));
+	{	
+		if(isset($_GET['turma']))
+		{	
+			$pk=$_GET['turma'];
+			$diario=diario_de_classe::model()->findByPk($pk);
+			$this->render('view',array(
+					'model'=>$diario,
+			));
+		}
+		else
+		{
+			$this->render('view',array(
+					'model'=>$this->loadModel(),
+			));
+		}
+		
 	}
 
 	/**

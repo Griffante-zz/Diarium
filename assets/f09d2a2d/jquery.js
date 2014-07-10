@@ -1845,6 +1845,7 @@ function isEmptyDataObject( obj ) {
 
 	return true;
 }
+
 jQuery.extend({
 	queue: function( elem, type, data ) {
 		var queue;
@@ -2205,6 +2206,7 @@ jQuery.fn.extend({
 		});
 	}
 });
+
 
 jQuery.extend({
 	valHooks: {

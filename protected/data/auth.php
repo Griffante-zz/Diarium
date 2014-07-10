@@ -6,6 +6,14 @@ return array (
     'description' => 'Can only read a post',
     'bizRule' => '',
     'data' => '',
+    'assignments' => 
+    array (
+      1 => 
+      array (
+        'bizRule' => NULL,
+        'data' => NULL,
+      ),
+    ),
   ),
   'aluno' => 
   array (
@@ -27,5 +35,13 @@ return array (
     'description' => 'Can read a post and post a comment',
     'bizRule' => '',
     'data' => '',
+    'assignments' => 
+    array (
+      2 => 
+      array (
+        'bizRule' => NULL,
+        'data' => NULL,
+      ),
+    ),
   ),
 );

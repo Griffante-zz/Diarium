@@ -1,11 +1,12 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),
 	'Turmas',
 );
 
 $this->menu=array(
-	array('label'=>'Create turma', 'url'=>array('create')),
-	array('label'=>'Manage turma', 'url'=>array('admin')),
+	array('label'=>'Inserir turma', 'url'=>array('create')),
+	array('label'=>'Gerenciar turmas', 'url'=>array('admin')),
 );
 ?>
 

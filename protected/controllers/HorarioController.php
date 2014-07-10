@@ -129,7 +129,15 @@ class HorarioController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('horario');
+		$sql = "select grade from horario group by grade";
+		$count = Yii::app()->db->createCommand($sql)->queryScalar();
+		$dataProvider = new CSqlDataProvider($sql,
+				array(
+						'keyField'=>'grade',
+						'totalItemCount'=>$count,
+				)
+		);
+		//$dataProvider=new CActiveDataProvider('horario');
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

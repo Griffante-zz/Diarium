@@ -31,14 +31,6 @@ class AlunoController extends Controller
 	public function accessRules()
 	{
 		return array(
-// 			array('allow',  // allow all users to perform 'index' and 'view' actions
-// 				'actions'=>array('index','view'),
-// 				'users'=>array('*'),
-// 			),
-// 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-// 				'actions'=>array('create','update'),
-// 				'users'=>array('@'),
-// 			),
 			array('allow',
 					'actions'=>array('index','view'),
 					'roles'=>array('admin', 'secretario', 'professor'),
@@ -75,6 +67,7 @@ class AlunoController extends Controller
 	{
 		$model=new aluno;
 		$user=new user;
+		$matricula=new matricula;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -83,17 +76,19 @@ class AlunoController extends Controller
 		{
 			$model->attributes=$_POST['aluno'];
 			$user->attributes=$_POST['user'];
+			$matricula->attributes=$_POST['matricula'];
 			$user->tipo='aluno';
-			
-			$model->dataNascimento = date('Y-m-d', strtotime($model->dataNascimento));
 			
 			if($model->validate() && $user->validate()){
 				
 				$user->save(); // Primeiro salva o usuário para pegar o ID dele.
 				
 				$model->id = $user->id; // Pegando o ID do usu�rio cadastrado, e vinculado ao id_usuario da tabela Cliente
-				
+				$model->matricula='2014'.$matricula->curso.$user->id;
 				if($model->save())//Salvando os dados do CLiente j� com o ID do Usu�rio
+					$matricula->matricula=$model->matricula;
+					$matricula->aluno=$model->id;
+					$matricula->save();
 					$this->redirect(array('view','id'=>$model->id));
 			}
 			
@@ -102,6 +97,7 @@ class AlunoController extends Controller
 		$this->render('create',array(
 			'model'=>$model,
 			'user'=>$user,
+			'matricula'=>$matricula,
 		));
 	}
 
@@ -113,6 +109,7 @@ class AlunoController extends Controller
 	{
 		$model=$this->loadModel();
 		$user=user::model()->findByPk($model->id);
+		$matricula=matricula::model()->findByPk($model->matricula0->id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -123,7 +120,15 @@ class AlunoController extends Controller
 					
 				$model->attributes=$_POST['aluno'];
 				$user->attributes=$_POST['user'];
+				$matricula->attributes=$_POST['matricula'];
+				$user->tipo='aluno';
+				$model->matricula='2014'.$matricula->curso.$user->id;
+				$user->save();
+				
 				if($model->save())
+					$matricula->matricula=$model->matricula;
+					$matricula->aluno=$model->id;
+					$matricula->save();
 					$this->redirect(array('view','id'=>$model->id));
 			}
 		}
@@ -131,6 +136,7 @@ class AlunoController extends Controller
 		$this->render('update',array(
 				'model'=>$model,
 				'user'=>$user,
+				'matricula'=>$matricula,
 		));
 	}
 
@@ -143,7 +149,16 @@ class AlunoController extends Controller
 		if(Yii::app()->request->isPostRequest)
 		{
 			// we only allow deletion via POST request
-			$this->loadModel()->delete();
+			//$this->loadModel()->delete();
+			
+			$model=$this->loadModel();
+			$user=user::model()->findByPk($model->id);
+			$matricula=matricula::model()->findByPk($model->matricula0->id);
+				
+			$matricula->delete();
+			$model->delete();
+			$user->delete();
+			
 
 			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
 			if(!isset($_GET['ajax']))

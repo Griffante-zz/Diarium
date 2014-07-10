@@ -17,7 +17,15 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'titulacao'); ?>
-		<?php echo $form->textField($model,'titulacao',array('size'=>12,'maxlength'=>12)); ?>
+		<?php /*echo $form->textField($model,'titulacao',array('size'=>12,'maxlength'=>12));*/
+				echo $form->dropDownList($model,'titulacao',
+											array(
+														'graduado'=>'Graduação',
+														'especialista'=>'Pós-Graduação',	
+														'mestre'=>'Mestrado',
+														'doutor'=>'Doutorado',
+												));
+		?>
 		<?php echo $form->error($model,'titulacao'); ?>
 	</div>
 	

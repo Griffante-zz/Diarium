@@ -6,7 +6,7 @@ class Matriz_curricularController extends Controller
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	public $layout='//layouts/column1';
 
 	/**
 	 * @var CActiveRecord the currently loaded data model instance.
@@ -70,11 +70,13 @@ class Matriz_curricularController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['matriz_curricular']))
+		if(isset($_POST['matriz_curricular']) && isset($_GET['curso']))
 		{
 			$model->attributes=$_POST['matriz_curricular'];
+			$model->curso=$_GET['curso'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->id));
+				//$this->redirect(array('view','id'=>$model->id));
+				$this->redirect(Yii::app()->createUrl("curso/view&id=".$model->curso));
 		}
 
 		$this->render('create',array(
@@ -93,9 +95,10 @@ class Matriz_curricularController extends Controller
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['matriz_curricular']))
+		if(isset($_POST['matriz_curricular']) && isset($_GET['curso']))
 		{
 			$model->attributes=$_POST['matriz_curricular'];
+			$model->curso=$_GET['curso'];
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

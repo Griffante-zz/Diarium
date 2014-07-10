@@ -42,7 +42,7 @@ class secretario extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'id0' => array(self::BELONGS_TO, 'User', 'id'),
+			'user' => array(self::BELONGS_TO, 'User', 'id'),
 		);
 	}
 
@@ -52,7 +52,7 @@ class secretario extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'nome' => 'Nome',
 		);
 	}

@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),
 	'Professors'=>array('index'),
 	'Manage',
 );

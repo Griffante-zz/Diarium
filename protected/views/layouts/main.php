@@ -54,7 +54,7 @@
 			'activeCssClass'=>'active',
 			'activateParents'=>true,
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/site/index')),
+				array('label'=>'Home', 'url'=>array('/site/index'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Disciplinas', 'url'=>array('/site/page', 'view'=>'disciplinas'), 'visible'=>isRole('professor')),
 				array('label'=>'Cadastros', 'url'=>array('/site/page', 'view'=>'cadastros'), 
 					'items'=>array(
@@ -72,7 +72,7 @@
 				array('label'=>'Boletim', 'url'=>array('/site/page', 'view'=>'boletim'), 'visible'=>isRole('aluno')),
 				array('label'=>'Sobre', 'url'=>array('/site/page', 'view'=>'about')),
 				array('label'=>'Contato', 'url'=>array('/site/contact')),
-				array('label'=>'Entrar', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				//array('label'=>'Entrar', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
 				array('label'=>'Sair', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
 			),
 		)); ?>

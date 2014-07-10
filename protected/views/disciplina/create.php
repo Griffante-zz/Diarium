@@ -1,15 +1,16 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),		
 	'Disciplinas'=>array('index'),
-	'Create',
+	'Inserir disciplina',
 );
 
 $this->menu=array(
-	array('label'=>'List disciplina', 'url'=>array('index')),
-	array('label'=>'Manage disciplina', 'url'=>array('admin')),
+	array('label'=>'Listar disciplinas', 'url'=>array('index')),
+	array('label'=>'Gerenciar disciplinas', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Create disciplina</h1>
+<h1>Inserir disciplina</h1>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

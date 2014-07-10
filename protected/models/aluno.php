@@ -8,7 +8,7 @@
  * @property string $matricula
  * @property string $nome
  * @property string $endereco
- * @property string $dataNascimento
+ * @property string $data_nascimento
  */
 class aluno extends CActiveRecord
 {
@@ -28,11 +28,11 @@ class aluno extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array(array('matricula', 'nome'),'required'),
+			array('nome','required'),
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('matricula', 'length', 'max'=>20),
 			array('nome, endereco', 'length', 'max'=>200),
-			array('dataNascimento', 'safe'),
+			array('data_nascimento', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('id, matricula, nome, endereco, dataNascimento', 'safe', 'on'=>'search'),
@@ -47,11 +47,11 @@ class aluno extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'id0' => array(self::BELONGS_TO, 'User', 'id'),
-			'avaliacao_alunos' => array(self::HAS_MANY, 'AvaliacaoAluno', 'aluno'),
-			'frequencias' => array(self::HAS_MANY, 'Frequencia', 'aluno'),
-			'lista_de_alunoses' => array(self::HAS_MANY, 'ListaDeAlunos', 'Aluno'),
-			'matriculas' => array(self::HAS_MANY, 'Matricula', 'aluno'),
+			'user' => array(self::BELONGS_TO, 'User', 'id'),
+			'avaliacao_aluno' => array(self::HAS_MANY, 'avaliacao_aluno', 'aluno'),
+			'frequencias' => array(self::HAS_MANY, 'frequencia', 'aluno'),
+			'lista_de_alunos' => array(self::HAS_MANY, 'lista_de_alunos', 'aluno'),
+			'matricula0' => array(self::HAS_ONE, 'matricula', 'aluno'),
 		);
 	}
 
@@ -65,7 +65,7 @@ class aluno extends CActiveRecord
 			'matricula' => 'Matrícula',
 			'nome' => 'Nome',
 			'endereco' => 'Endereço',
-			'dataNascimento' => 'Data de Nascimento',
+			'data_nascimento' => 'Data de Nascimento',
 		);
 	}
 
@@ -95,7 +95,7 @@ class aluno extends CActiveRecord
 
 		$criteria->compare('endereco',$this->endereco,true);
 
-		$criteria->compare('dataNascimento',$this->dataNascimento,true);
+		$criteria->compare('data_nascimento',$this->data_nascimento,true);
 
 		return new CActiveDataProvider('aluno', array(
 			'criteria'=>$criteria,

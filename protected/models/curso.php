@@ -43,8 +43,9 @@ class curso extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'matriculas' => array(self::HAS_MANY, 'Matricula', 'curso'),
-			'matriz_curriculars' => array(self::HAS_MANY, 'MatrizCurricular', 'curso'),
+			'matriculas' => array(self::HAS_MANY, 'matricula', 'curso'),
+			'matriz_curriculars' => array(self::HAS_MANY, 'matriz_curricular', 'curso'),
+			'coordenador0' => array(self::BELONGS_TO, 'professor', 'coordenador'),
 		);
 	}
 
@@ -54,7 +55,7 @@ class curso extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'nome' => 'Nome',
 			'coordenador' => 'Coordenador',
 		);

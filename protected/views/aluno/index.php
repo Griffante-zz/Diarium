@@ -6,7 +6,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Inserir aluno', 'url'=>array('create')),
-	array('label'=>'Gerenciar aluno', 'url'=>array('admin')),
+	array('label'=>'Gerenciar alunos', 'url'=>array('admin')),
 );
 ?>
 

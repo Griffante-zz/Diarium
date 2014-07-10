@@ -27,7 +27,7 @@ class diario_de_classe extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
+			//array('turma', 'required'),
 			array('id, turma', 'numerical', 'integerOnly'=>true),
 			array('periodo, etapa', 'length', 'max'=>10),
 			// The following rule is used by search().
@@ -55,8 +55,8 @@ class diario_de_classe extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
-			'periodo' => 'Periodo',
+			'id' => 'ID',
+			'periodo' => 'Período',
 			'etapa' => 'Etapa',
 			'turma' => 'Turma',
 		);

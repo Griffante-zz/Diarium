@@ -11,6 +11,9 @@
 	<b><?php echo CHtml::encode($data->getAttributeLabel('ementa')); ?>:</b>
 	<?php echo CHtml::encode($data->ementa); ?>
 	<br />
-
+	
+	<b><?php echo CHtml::encode($data->getAttributeLabel('carga_horaria')); ?>:</b>
+	<?php echo CHtml::encode($data->carga_horaria." horas"); ?>
+	<br />
 
 </div>

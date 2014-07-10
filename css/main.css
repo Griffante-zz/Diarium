@@ -67,6 +67,7 @@ body
 {
 	background:white url(bg.gif) repeat-x left top;
 	height: 27px;
+	z-index:2;
 }
 
 #mainmenu ul
@@ -126,6 +127,7 @@ body
     background-color:#EFF4FA;
     display:none;
     width:80px;
+    z-index:100;
 }
 
 #mainmenu ul li ul li {
@@ -367,3 +369,50 @@ body{
 .menu2 li:hover ul, .menu2 li.over ul{display:block;}
 
 .menu2 li ul li{border:1px solid #c0c0c0; display:block; width:150px;}
+
+
+
+.panel
+{
+	float: left;
+	display: inline;
+}
+
+.panel ul
+{
+	padding:5px 20px 5px 20px;
+	z-index:1;
+}
+
+.panel ul li{
+	
+	display: inline;
+	position:relative; 
+	float:left;
+	padding:50px 0px 0px 0px; 
+	margin:1px;
+	border: solid 1px;
+	border-color: #000;
+	color:#EFF4FA;
+	background:#EFF4FA url(bg.gif) repeat-x left top;
+	
+}
+
+.panel ul li a
+{
+	color: #6399cd;
+	background-color:transparent;
+	font-size:20px;
+	font-weight:bold;
+	text-decoration:none;
+	padding:50px 25px 0px 25px; 
+	
+}
+
+.panel ul li a:hover, .panel ul li.active a
+{
+	color: #6399cd;
+	background-color:#EFF4FA;
+	padding:50px 25px 0px 25px;
+	text-decoration:none;
+}

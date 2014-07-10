@@ -9,7 +9,7 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('coordenador')); ?>:</b>
-	<?php echo CHtml::encode($data->coordenador); ?>
+	<?php echo CHtml::encode($data->coordenador.'. '.$data->coordenador0->nome); ?>
 	<br />
 
 

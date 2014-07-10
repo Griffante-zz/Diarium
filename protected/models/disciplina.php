@@ -7,6 +7,7 @@
  * @property integer $id
  * @property string $nome
  * @property string $ementa
+ * @property string $carga_horaria
  */
 class disciplina extends CActiveRecord
 {
@@ -29,10 +30,10 @@ class disciplina extends CActiveRecord
 			//array('id', 'required'),
 			array('id', 'numerical', 'integerOnly'=>true),
 			array('nome', 'length', 'max'=>100),
-			array('ementa', 'safe'),
+			array('ementa, carga_horaria', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, nome, ementa', 'safe', 'on'=>'search'),
+			array('id, nome, ementa, carga_horaria', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -44,8 +45,8 @@ class disciplina extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'matriz_curriculars' => array(self::HAS_MANY, 'MatrizCurricular', 'disciplina'),
-			'turmas' => array(self::HAS_MANY, 'Turma', 'disciplina'),
+			'matrizes_curriculares' => array(self::HAS_MANY, 'matriz_curricular', 'disciplina'),
+			'turmas' => array(self::HAS_MANY, 'turma', 'disciplina'),
 		);
 	}
 
@@ -55,9 +56,10 @@ class disciplina extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'nome' => 'Nome',
 			'ementa' => 'Ementa',
+			'carga_horaria' => 'Carga Horária',
 		);
 	}
 
@@ -84,6 +86,8 @@ class disciplina extends CActiveRecord
 		$criteria->compare('nome',$this->nome,true);
 
 		$criteria->compare('ementa',$this->ementa,true);
+		
+		$criteria->compare('carga_horaria',$this->carga_horaria,true);
 
 		return new CActiveDataProvider('disciplina', array(
 			'criteria'=>$criteria,

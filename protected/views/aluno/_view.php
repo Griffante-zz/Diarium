@@ -12,12 +12,12 @@
 	<?php echo CHtml::encode($data->matricula); ?>
 	<br />
 	
-	<b><?php echo CHtml::encode($data->id0->getAttributeLabel('username')); ?>:</b>
-	<?php echo CHtml::encode($data->id0->username); ?>
+	<b><?php echo CHtml::encode($data->user->getAttributeLabel('username')); ?>:</b>
+	<?php echo CHtml::encode($data->user->username); ?>
 	<br />
 	
-	<b><?php echo CHtml::encode($data->id0->getAttributeLabel('email')); ?>:</b>
-	<?php echo CHtml::encode($data->id0->email); ?>
+	<b><?php echo CHtml::encode($data->user->getAttributeLabel('email')); ?>:</b>
+	<?php echo CHtml::encode($data->user->email); ?>
 	<br />
 
 

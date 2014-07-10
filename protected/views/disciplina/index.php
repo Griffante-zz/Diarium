@@ -1,12 +1,13 @@
 <?php
 $this->breadcrumbs=array(
+	'Cadastros'=>array("site/page&view=cadastros"),
 	'Disciplinas',
 );
 
 
 $this->menu=array(
-	array('label'=>'Create disciplina', 'url'=>array('create')),
-	array('label'=>'Manage disciplina', 'url'=>array('admin')),
+	array('label'=>'Inserir disciplina', 'url'=>array('create')),
+	array('label'=>'Gerenciar disciplinas', 'url'=>array('admin')),
 );
 
 

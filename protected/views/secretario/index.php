@@ -1,15 +1,16 @@
 <?php
 $this->breadcrumbs=array(
-	'Secretarios',
+	'Cadastros'=>array("site/page&view=cadastros"),
+	'Secretários',
 );
 
 $this->menu=array(
-	array('label'=>'Create secretario', 'url'=>array('create')),
-	array('label'=>'Manage secretario', 'url'=>array('admin')),
+	array('label'=>'Inserir secretário', 'url'=>array('create')),
+	array('label'=>'Gerenciar secretários', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Secretarios</h1>
+<h1>Secretários</h1>
 
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,

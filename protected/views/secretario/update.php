@@ -1,18 +1,19 @@
 <?php
 $this->breadcrumbs=array(
-	'Secretarios'=>array('index'),
-	$model->id=>array('view','id'=>$model->id),
-	'Update',
+	'Cadastros'=>array("site/page&view=cadastros"),
+	'Secretários'=>array('index'),
+	$model->id.". ".$model->nome=>array('view','id'=>$model->id),
+	'Editar',
 );
 
 $this->menu=array(
-	array('label'=>'List secretario', 'url'=>array('index')),
-	array('label'=>'Create secretario', 'url'=>array('create')),
-	array('label'=>'View secretario', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage secretario', 'url'=>array('admin')),
+	array('label'=>'Listar secretários', 'url'=>array('index')),
+	array('label'=>'Inserir secretário', 'url'=>array('create')),
+	array('label'=>'Visualizar secretário', 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>'Gerenciar secretários', 'url'=>array('admin')),
 );
 ?>
 
-<h1>Update secretario <?php echo $model->id; ?></h1>
+<h1>Editar secretário <?php echo $model->id.". ".$model->nome; ?></h1>
 
-<?php echo $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php echo $this->renderPartial('_form', array('model'=>$model,'user'=>$user)); ?>
